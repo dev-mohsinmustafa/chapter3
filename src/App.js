@@ -1,23 +1,49 @@
-import logo from './logo.svg';
 import './App.css';
+import Account from './components/account/account';
+import Bonus from './components/bonus/bonus';
+
+import { useSelector } from "react-redux";
+
+// additional
+import Reward from './components/reward/reward';
+
 
 function App() {
+
+
+
+  const amount = useSelector(state => state.account.amount);
+  const points = useSelector(state => state.bonus.points);
+  
+  const account = useSelector(state => state.account);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <h4 style={{ color: "red" }}>App : </h4>
+
+
+
+      {/* <h3 style={{ color: "yellow" }}>Current Amount : {amount} </h3> */}
+      {/* <h3 style={{ color: "yellow" }}>Total Bonus : {points} </h3> */}
+
+      {
+        account.pending ? <p>...loading</p> :
+          account.error ? <span>{account.error.message}</span> :
+            <h3 style={{ color: "yellow" }}>Current Amount : {amount} </h3>
+
+      }
+
+
+
+
+
+      <Account />
+      <Bonus />
+
+      {/* additional */}
+      <Reward />
     </div>
   );
 }
